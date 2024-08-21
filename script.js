@@ -118,7 +118,7 @@ function atualizarLista() {
   const mensagem = document.getElementById("mensagem-remocao");
 
   setTimeout(function () {
-    mensagem.remove();
+    mensagem.style.display = "none";
   }, 15000);
 
 

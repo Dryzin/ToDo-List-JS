@@ -267,5 +267,53 @@ function loadLinkedListFromLocalStorage() {
   }
 }
 
+function saveLinkedListToURL() {
+  let listaParaSalvar = [];
+  for (const item of minhaLista) {
+    listaParaSalvar.push({
+      _descricao: item.descricao,
+      _prioridade: item.prioridade,
+      _data: item.data,
+      _hora: item.hora,
+    });
+  }
+  let jsonStr = JSON.stringify(listaParaSalvar);
+  let encodedStr = encodeURIComponent(jsonStr);
+  let url = `${window.location.origin}${window.location.pathname}?data=${encodedStr}`;
+  console.log("Generated URL:", url);
+  return url;
+}
+
+function loadLinkedListFromURL() {
+  let params = new URLSearchParams(window.location.search);
+  let encodedStr = params.get("data");
+  if (encodedStr) {
+    let jsonStr = decodeURIComponent(encodedStr);
+    let listaCarregada = JSON.parse(jsonStr);
+    for (let i = 0; i < listaCarregada.length; i++) {
+      let obj = listaCarregada[i];
+      let novaTarefa = new Tarefa(
+        obj._descricao,
+        obj._prioridade,
+        obj._data,
+        obj._hora
+      );
+      minhaLista.addLast(novaTarefa);
+    }
+    atualizarLista();
+    alert("Lista carregada a partir da URL com sucesso!");
+  }
+}
+
+
+let url = saveLinkedListToURL();
+console.log("Use this link to share your list:", url);
+
+
+
+window.onload = function() {
+  loadLinkedListFromURL();
+};
+
 
 //----------  ----------------------------------------------------------------------------------

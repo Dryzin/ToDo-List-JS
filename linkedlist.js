@@ -52,6 +52,23 @@ class LinkedList {
     this.length++;
   }
 
+  addLast(novoDado){
+    const novoNo = new No(novoDado);
+    if(novoNo===null)
+        return false;
+
+    if(this.head===null)// vazia
+        this.head = novoNo;
+    else{
+       novoNo.ant = this.tail;
+       this.tail.prox = novoNo;
+
+    }
+    this.tail = novoNo;
+    this.length++;
+    return true;
+  }
+
   removeElemento() {
     if (this.head === null) return null;
     const tarefaRemovida = this.head.dado;

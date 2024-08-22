@@ -266,4 +266,6 @@ function loadLinkedListFromLocalStorage() {
     alert("Lista carregada com sucesso!");
   }
 }
+
+
 //----------  ----------------------------------------------------------------------------------
